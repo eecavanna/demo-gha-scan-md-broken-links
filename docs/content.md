@@ -2,38 +2,51 @@
 
 ## Working links
 
-Here are some working links in various formats:
+### Bare URLs
 
-1. http://www.example.com/1 (bare URL)
-2. https://www.example.com/2 (bare URL)
-3. [HTTP example](http://www.example.com/3) (Markdown link)
-4. [HTTPS example](https://www.example.com/4) (Markdown link)
-5. `http://www.example.com/5` (URL in inline code)
-6. `https://www.example.com/6` (URL in inline code)
-7. URL in code block:
-   ```shell
-   curl http://www.example.com/7
-   ```
-8. URL in code block:
-   ```shell
-   curl https://www.example.com/8
-   ```
+- Bare URL (HTTP, redirects to HTTPS): http://en.wikipedia.org/wiki/Main_Page
+- Bare URL (HTTPS): https://en.wikipedia.org/wiki/Potato
+
+### Markdown links
+
+- [Markdown link (HTTP, redirects to HTTPS)](http://en.wikipedia.org/wiki/Association_football)
+- [Markdown link (HTTPS)](https://en.wikipedia.org/wiki/Existence)
+
+### Inline code
+
+- Inline code (HTTP, redirects to HTTPS): `http://en.wikipedia.org/wiki/Hamster`
+- Inline code (HTTPS): `https://en.wikipedia.org/wiki/Code`
+
+### Code block
+
+- Code block (HTTP, redirects to HTTPS)
+  ```shell
+  curl http://en.wikipedia.org/wiki/Cactus
+  ```
+- Code block (HTTPS)
+  ```shell
+  curl https://en.wikipedia.org/wiki/Abacus
+  ```
+
+---
 
 ## Non-working links
 
-Here are some non-working links in various formats:
+### Bare URLs
 
-1. http://invalid.example.com/1 (bare URL)
-2. https://invalid.example.com/2 (bare URL)
-3. [HTTP example](http://invalid.example.com/3) (Markdown link)
-4. [HTTPS example](https://invalid.example.com/4) (Markdown link)
-5. `http://invalid.example.com/5` (URL in inline code)
-6. `https://invalid.example.com/6` (URL in inline code)
-7. URL in code block:
-   ```shell
-   curl http://invalid.example.com/7
-   ```
-8. URL in code block:
-   ```shell
-   curl https://invalid.example.com/8
-   ```
+- Bare URL (non-existent page): https://en.wikipedia.org/wiki/Non-existent-page (expect `HTTP 404`)
+
+### Markdown links
+
+- [Markdown link (non-existent page)](https://en.wikipedia.org/wiki/Nothing-is-here) (expect `HTTP 404`)
+
+### Inline code
+
+- Inline code (non-existent page): `https://en.wikipedia.org/wiki/Page-not-found` (expect `HTTP 404`)
+
+### Code block
+
+- Code block (HTTP, redirects to HTTPS) (expect `HTTP 404`)
+  ```shell
+  curl https://en.wikipedia.org/wiki/Nothing-to-see
+  ```
