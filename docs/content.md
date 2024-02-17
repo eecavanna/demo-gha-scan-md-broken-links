@@ -46,7 +46,7 @@
 
 ### Code block
 
-- Code block (HTTP, redirects to HTTPS) (expect `HTTP 404`)
+- Code block (non-existent page) (expect `HTTP 404`)
   ```shell
   curl https://en.wikipedia.org/wiki/Nothing-to-see
   ```
