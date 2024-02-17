@@ -1,0 +1,52 @@
+# GitHub Actions workflow for Baler (BAd Link reportER) version 2.0.4.
+# This is available as the file "sample-workflow.yml" from the source
+# code repository for Baler: https://github.com/caltechlibrary/baler
+
+name: Check links
+
+# Configure this section ─────────────────────────────────────────────
+
+env:
+  # Files to check. (Put patterns on separate lines, no leading dash.)
+  # Reference: https://github.com/marketplace/actions/baler-bad-link-reporter#files
+  files: |
+    docs/**/*.md
+
+  # Label(s) assigned to issues created by this workflow. (Use commas to separate labels.)
+  # Reference: https://github.com/marketplace/actions/baler-bad-link-reporter#labels
+  labels: docs,broken-link
+
+  # Number of previous issues to check for duplicate reports. (Max is 100.)
+  # Reference: https://github.com/marketplace/actions/baler-bad-link-reporter#lookback
+  lookback: 100
+
+  # Time (sec) to wait on an unresponsive URL before trying once more.
+  # Reference: https://github.com/marketplace/actions/baler-bad-link-reporter#timeout
+  timeout: 3
+
+  # Optional file containing a list of URLs to ignore, one per line.
+  # Reference: https://github.com/marketplace/actions/baler-bad-link-reporter#ignore
+  ignore: .github/workflows/check-links-ignore.txt
+
+on:
+  # Allow people to trigger the workflow manually.
+  # Reference: https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow
+  workflow_dispatch: {}
+
+# The rest of this file should be left as-is ─────────────────────────
+
+run-name: Test links in Markdown files
+jobs:
+  Baler:
+    name: Link checker and reporter
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: caltechlibrary/baler@v2
+        with:
+          files:    ${{github.event.inputs.files    || env.files}}
+          labels:   ${{github.event.inputs.labels   || env.labels}}
+          ignore:   ${{github.event.inputs.ignore   || env.ignore}}
+          timeout:  ${{github.event.inputs.timeout  || env.timeout}}
+          lookback: ${{github.event.inputs.lookback || env.lookback}}
